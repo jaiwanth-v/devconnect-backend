@@ -7,7 +7,7 @@ const User = require("../../models/User");
 const config = require("config");
 const request = require("request");
 const { response } = require("express");
-const Post = require('../../models/Posts');
+const Post = require("../../models/Posts");
 
 router.get("/me", auth, async (req, res) => {
   try {
@@ -121,8 +121,7 @@ router.get("/:user_id", async (req, res) => {
 
 router.delete("/", auth, async (req, res) => {
   try {
-    await Post.deleteMan({user: req.user.id});
-
+    await Post.deleteMany({ user: req.user.id });
     await Profile.findOneAndRemove({ user: req.user.id });
     await User.findOneAndRemove({ _id: req.user.id });
     res.json({ msg: "User deleted" });
